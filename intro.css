@@ -1,0 +1,120 @@
+
+@-webkit-keyframes intro {
+	0% {
+		background-color: #EEEEEE;
+		visibility: hidden;
+		z-index: 4;
+		}
+	25% {
+		background-color: #EEEFFF;
+		visibility: visible;
+		z-index: 4;
+		}
+	50% {
+		background-color: #ddE111;
+		visibility: visible;
+		z-index: 4;
+		}
+	75% {
+		background-color: #aaE555;
+		visibility: visible;
+		z-index: 4;
+		}
+	100% {
+		background-color: #EEEEEE;
+		visibility: hidden;
+
+		}
+
+}
+
+
+@-webkit-keyframes game {
+	0% {
+		visibility: hidden;
+		}
+	25% {
+		visibility: hidden;
+		}
+	50% {
+		visibility: hidden;
+		}
+	75% {
+		visibility: hidden;
+		}
+	100% {
+		visibility: visible;
+		}
+
+}
+
+@-webkit-keyframes introShow {
+	0% {
+		visibility:hidden;	
+		background-color: #FFFFFF;	
+		}
+	25% {
+		visibility:visible;
+		font-size:.5em;
+		}
+	50% {
+		visibility:visible;
+		font-size:1.5em;
+		}
+	75% {
+		visibility:visible;
+		font-size:2em;
+		}
+	100% {
+		visibility: hidden;
+		font-size:1.8em;
+		}
+}
+
+.intro p{
+	display:inline-block;
+	margin-top: auto;
+	visibility: hidden;
+	-webkit-animation-name:introShow;
+	-webkit-animation-duration:0s;
+}
+
+.introElements p {
+	position:relative;
+	font-size: 1.5em;
+	margin-left:20%;
+	margin-top: 12.5%;
+}
+.thing{
+	display:inline-block;
+	height: 15em;
+	width: 15em;
+	border-radius: 50%;
+	background-color: red;
+	visibility: hidden;
+	-webkit-animation-name:introShow;
+	-webkit-animation-duration:0s;
+}
+
+.box{
+	display:inline-block;
+	height: 15em;
+	width: 15em;
+	background-color: blue;
+	visibility: hidden;
+	-webkit-animation-name:introShow;
+	-webkit-animation-duration:0s;
+
+}
+
+.intro {
+	height:100%;
+	width:100%;
+	-webkit-animation-name:intro;
+	-webkit-animation-duration:0s;
+}
+
+.game{
+	-webkit-animation-name:game;
+	-webkit-animation-duration:1s;
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>level one</title>
+	<link rel="stylesheet" type="text/css" href="./styles.css">
+	<link rel="stylesheet" type="text/css" href="./intro.css">
+	<script type="text/javascript" src="./dependencies/angular.js"></script>
+	<script type="text/javascript" src="./dependencies/lodash.js"></script>
+	<script type="text/javascript" src="./engine/proofEngine.js"></script>
+	<script type="text/javascript" src="./engine/setEngine.js"></script>
+	<script type="text/javascript" src="./engine/operations.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+</head>
+<body ng-app="homepage">
+<div class="intro">
+	<div class="thing introElements">
+		<p>Thing</p>	
+	</div>
+	<p>Things go in Boxes,</p>
+	<div class="box introElements">
+		<p>Box</p>
+	</div>
+	<p>Boxes can have many Things</p>
+</div>
+<div id="wrapper" ng-controller="lvl1Controller as lvl1" class="game">
+	<h1 id='goal'>Prove x is in (BnC)nA</h1>
+	<div id="tree" ondragover='dragoverTree(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.newFact(event)">Tree
+		<li ng-repeat='fact in lvl1.facts' class='fact' draggable='true' index='{{$index}}' ondragstart='dragFact(event)'>{{fact.str}}<br>
+		</li>
+	</div>
+	<div id="tableWrap">
+			
+		<div id="pockets">
+		<div id="pocketSelector">
+			<button onClick="intersectionMode()">intersection</button>
+			<button onClick="setMode()">custom set</button>
+			<button onClick="factMode()">facts</button>
+		</div>
+			<div id="setPocket" class="" >
+				<div class="boxPocket Pocket" draggable='true' ondragstart='dragSetForm(event)' ondragover='dragoverSetForm(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.elementDrop(event)">
+	        		<div class="droppedElemWrap">
+	        			<div class='droppedElement' ng-repeat="el in lvl1.elementsGoingIn">{{el.name}}</div>
+	        		</div>
+					<form id='setForm'>
+	            		<input type='text' ng-model='lvl1.setName'></input>
+	        		</form>
+				</div>
+
+			</div>
+			<div id="intersectionPocket" class="hidden">
+				<div id="intersection" draggable ="true" ondragstart='dragIntersection(event)'>
+					<div id='intersectionText'></div>
+					<div id='left' class='iset leftUnclicked' ondragover='dragoverISet(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.intersectionDrop1(event)" onclick="clickedClass(this, 'red')">
+						<div ondragover='dragoverISet(event)'ng-show='lvl1.intersection1' id="{{lvl1.intersection1.equivalents[0]}}">{{lvl1.intersection1.equivalents[0]}}</div>
+					</div>
+					<div id="nMid">n</div>
+					<div id='right' class='iset rightUnclicked' ondragover='dragoverISet(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.intersectionDrop2(event)" onclick="clickedClass(this, 'red')">
+						<div ondragover='dragoverISet(event)'ng-show='lvl1.intersection2' id="{{lvl1.intersection2.equivalents[0]}}">{{lvl1.intersection2.equivalents[0]}}</div>
+					</div>
+				</div>
+			</div>
+			<div id="factPocket" draggable='true' ondragstart='dragFactPocket(event)' ondragover='dragoverSetFact(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.dropSetFact(event)">
+				<div ng-show='lvl1.factSet'>{{lvl1.factSet.equivalents[0]}}</div>
+				<div id="triangle" class="fact ">
+				
+					<div class="arrow-right"></div>
+				</div>
+				<div id="dropZone" ondragover='dragoverElementFact(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.dropElementFactOut(event)"> drop Zone
+					<div id='factE' ng-hide='lvl1.factIsIn'>{{lvl1.factElement.name}}</div>
+				</div>
+				<div id="square" class="setinFact " ondragover='dragoverElementFact(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.dropElementFactIn(event)">
+				
+					<div id="element" class = "element elementinFact">
+						<div id='factE' ng-show='lvl1.factIsIn'>{{lvl1.factElement.name}}</div>
+					</div>
+				 </div>
+				 <div ng-repeat='fact in lvl1.justifications'>{{fact.str}}</div>
+			</div>
+		</div>
+	<!-- 	<div id="operations" class="" onclick="clickedClass(this, 'operations')">Operations
+			<div id='union' draggable='true' ondragstart='dragUnion(event)'>
+			        <div id='unionText'>Union Operator</div>
+			        <div id= "left" class='uSet leftUnClicked'  ondragover='dragoverUSet(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.unionDrop1(event)" onclick="clickedClass(this, 'red')"> 
+			          <div ng-show='lvl1.union1' id="{{lvl1.union1.equivalents[0]}}">{{lvl1.union1.equivalents[0]}}</div>
+			        </div>
+			        <div id='uMid'>U</div>
+			        <div id="right" class='uSet rightUnClicked' ondragover='dragoverUSet(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.unionDrop2(event)" onclick="clickedClass(this, 'blue')">
+			        <div ng-show='lvl1.union2' id="{{lvl1.union2.equivalents[0]}}">{{lvl1.union2.equivalents[0]}}</div>
+			    </div>
+			</div>
+			<div id="intersection" draggable ="true" ondragstart='dragIntersection(event)'>
+					<div id='intersectionText'>Intersection Operator</div>
+					<div id='left' class='iset leftUnclicked' ondragover='dragoverISet(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.intersectionDrop1(event)" onclick="clickedClass(this, 'red')">
+						<div ng-show='lvl1.intersection1' id="{{lvl1.intersection1.equivalents[0]}}">{{lvl1.intersection1.equivalents[0]}}</div>
+					</div>
+					<div id="nMid">n</div>
+					<div id='right' class='iset leftUnclicked' ondragover='dragoverISet(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.intersectionDrop2(event)" onclick="clickedClass(this, 'red')">
+						<div ng-show='lvl1.intersection2' id="{{lvl1.intersection2.equivalents[0]}}">{{lvl1.intersection2.equivalents[0]}}</div>
+					</div>
+			</div>
+		</div> -->
+	</div>
+
+	<!-- <div id="facts">Facts</div> -->
+	<div id="sets" ondragover="dragoverTable(event)" ondrop="angular.element(getElementById('wrapper')).scope().lvl1.drop(event)">
+		<table>
+		<tr><div id="set" draggable='true' index='{{$index}}' ondragstart="dragSet(event)" ng-repeat="set in lvl1.sets track by $index">{{set.equivalents[0]}}</div> </tr>
+	<div id="elements">
+		<div class="element" ng-repeat='element in lvl1.elements' index="{{$index}}" draggable='true' ondragstart="dragElement(event)">{{element.name}}</div>
+	</div>
+	</div>
+	<div id="setDetails">Set Details for {{lvl1.selectedSet.equivalents[0]}}:
+		<p>Elements known in A</p>
+		<div id='detailElementWrapper'>
+			<div ng-repeat="el in lvl1.selectedSet.elements" class="element detailsElement">{{el.name}}</div>
+		</div>
+
+	</div>
+</div>
+</body>
+</html>
