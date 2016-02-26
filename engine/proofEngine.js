@@ -26,7 +26,7 @@ var inAtomic = function(eName, setName, facts) {
 									res = true;
 								}
 							} else if (fact.setSyntax[2] === setName) {
-								if (!f.isIn && _.isEqual(f.setSyntax, fact.setSyntax[2]) ) {
+								if (!f.isIn && _.isEqual(f.setSyntax, fact.setSyntax[0]) ) {
 									res = true;
 								}
 							}
