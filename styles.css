@@ -1,6 +1,7 @@
 /**{ 
 border: dotted 2px green;}*/
 body{
+
 	height:880px;
 }
 #wrapper {
@@ -256,9 +257,14 @@ display: block;
 }
 
 #factPocket{
+	border: 2px solid #EEEEEE;
 	position: relative;
-
-	bottom:450px;
+	background-image: url("./assets/triangle.jpg");
+	height: 380px;
+	width:355px;
+	left:180px;
+	bottom:280px;
+/*	bottom:450px;
 	visibility: 	hidden;	
 	width: 0; 
 	height: 0; 
@@ -267,30 +273,46 @@ display: block;
 	border-left: 380px solid transparent;
 	-webkit-transform: rotate(90deg);
 	transform:rotate(90deg);
-	-ms-transform:rotate(90deg);	
+	-ms-transform:rotate(90deg);*/	
 }
 
 /*Triangles*/
 
 
 .setinFact{
-	/*border: 1px solid black;*/
 	position:relative;
-	background-color: blue;
-	width:8em;
-	height:8em;
-	z-index: 2;
-	bottom:370px;
-	right:180px;
-}
+	background-image: url("./assets/square.jpg");
+	top: 55%;
+	left:27.27%;
+	z-index: 1;
+	height:164px;
+	width:160px;
+	padding-left:-2px;
 
+}
+#factS{
+
+	display:block;
+	z-index:2;
+	font-size: 2.5em;
+}
 .elementinFact{
+	
+	position:absolute;
 	width:80%;
 	height:80%;
-	left:10px;
+	left:11px;
+	top:15px;
+}
+#factE{
+	position:relative;
+
+	left:40%;
+	top:30%;
+	font-size: 2.5em;
 }
 
-#dropZone{
+/*#dropZone{
 	width:100px;
 	height:150px;
 	border: 4px solid black;
@@ -300,9 +322,23 @@ display: block;
 		right:180px;
 	float:right;
 }
-
+*/
 
 .fact {
 	position: relative;
 	display: block;
+}
+
+.v0{
+	font-size:10em;
+}
+
+.v1{
+	font-size: 15em;
+
+}
+
+.v2{
+	font-color:blue;
+
 }

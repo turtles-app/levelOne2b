@@ -25,7 +25,7 @@
 <div id="wrapper" ng-controller="lvl1Controller as lvl1" class="game">
 	<h1 id='goal'>Prove x is in (BnC)nA</h1>
 	<div id="tree" ondragover='dragoverTree(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.newFact(event)">Tree
-		<li ng-repeat='fact in lvl1.facts' class='fact' draggable='true' index='{{$index}}' ondragstart='dragFact(event)'>{{fact.str}}<br>
+		<li ng-repeat='fact in lvl1.facts' id="fact{{fact.groupIndex}}" class='fact' draggable='true' index='{{$index}}' ondragstart='dragFact(event)'>{{fact.str}}<br>
 		</li>
 	</div>
 	<div id="tableWrap">
@@ -60,21 +60,18 @@
 				</div>
 			</div>
 			<div id="factPocket" draggable='true' ondragstart='dragFactPocket(event)' ondragover='dragoverSetFact(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.dropSetFact(event)">
-				<div ng-show='lvl1.factSet'>{{lvl1.factSet.equivalents[0]}}</div>
-				<div id="triangle" class="fact ">
-				
-					<div class="arrow-right"></div>
-				</div>
-				<div id="dropZone" ondragover='dragoverElementFact(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.dropElementFactOut(event)"> drop Zone
+			
+				<!-- <div id="dropZone" ondragover='dragoverElementFact(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.dropElementFactOut(event)"> drop Zone
 					<div id='factE' ng-hide='lvl1.factIsIn'>{{lvl1.factElement.name}}</div>
-				</div>
+				</div> -->
 				<div id="square" class="setinFact " ondragover='dragoverElementFact(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.dropElementFactIn(event)">
+					<div id="factS" ng-show='lvl1.factSet'>{{lvl1.factSet.equivalents[0]}}</div>
 				
 					<div id="element" class = "element elementinFact">
 						<div id='factE' ng-show='lvl1.factIsIn'>{{lvl1.factElement.name}}</div>
 					</div>
 				 </div>
-				 <div ng-repeat='fact in lvl1.justifications'>{{fact.str}}</div>
+				 <div id="fact{{fact.groupIndex}}" ng-repeat='fact in lvl1.justifications'>{{fact.str}}</div>
 			</div>
 		</div>
 	<!-- 	<div id="operations" class="" onclick="clickedClass(this, 'operations')">Operations

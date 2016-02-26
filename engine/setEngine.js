@@ -69,6 +69,7 @@ var Fact = function (elementName, isIn, setSyntax) {
 	var tmpStr = ' is in ';
 	if (!isIn) tmpStr = ' is not in ';
 	this.str = elementName + tmpStr + setSyntax.toString();
+	this.groupIndex;
 };
 
 

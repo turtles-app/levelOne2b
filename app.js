@@ -182,15 +182,23 @@ app.controller('lvl1Controller', function($scope){
 	this.elements.push(x, y, z, p, q);
 
 	var xInA = new Fact('x', true, 'A'),
-	yInB = new Fact('y', true, 'B'),
 	xInB = new Fact('x', true, 'B'),
+	yInB = new Fact('y', true, 'B'),
 	zInB = new Fact('z', true, 'B'),
 	zInC = new Fact('z', true, 'C'),
 	pInC = new Fact('p', true, 'C'),
 	qInC = new Fact('q', true, 'C'),
-	xinC = new Fact('x', true, 'C');
+	xInC = new Fact('x', true, 'C');
 
-	this.facts.push(xInA, xInB, yInB, zInC, pInC, qInC, xinC);
+	xInA.groupIndex = 0;
+	xInB.groupIndex = 1;
+	yInB.groupIndex = 2;
+	zInC.groupIndex = 3;
+	pInC.groupIndex = 4;
+	qInC.groupIndex = 5;
+	xInC.groupIndex = 6;
+
+	this.facts.push(xInA, xInB, yInB, zInC, pInC, qInC, xInC);
 
 	this.selectedSet = A;
 
@@ -387,14 +395,17 @@ app.controller('lvl1Controller', function($scope){
 	};
 
 	this.dropElementFactIn = function(ev) {
-		var index = dragData.index;
-		if ($scope.lvl1.factElement) {
-			$scope.lvl1.elements.push($scope.lvl1.factElement);
-		}		
-		$scope.lvl1.factElement = $scope.lvl1.elements.splice(index, 1)[0];
-		$scope.lvl1.factIsIn = true;
-		$scope.lvl1.elements.sort(sortGroup);
-		$scope.$apply();
+		var type = dragData.type;
+		if(type==="element"){
+			var index = dragData.index;
+			if ($scope.lvl1.factElement) {
+				$scope.lvl1.elements.push($scope.lvl1.factElement);
+			}		
+			$scope.lvl1.factElement = $scope.lvl1.elements.splice(index, 1)[0];
+			$scope.lvl1.factIsIn = true;
+			$scope.lvl1.elements.sort(sortGroup);
+			$scope.$apply();
+		}
 	};
 
 	this.dropElementFactOut = function(ev) {
@@ -411,15 +422,28 @@ app.controller('lvl1Controller', function($scope){
 	this.dropSetFact = function(ev) {
 		var index = dragData.index;
 		if (dragData.type === 'set') {
+			console.log("set dropped in fact");
 			if ($scope.lvl1.factSet) {
 				$scope.lvl1.sets.push($scope.lvl1.factSet);
 			}
+			console.log($scope.lvl1.sets);
 			$scope.lvl1.factSet = $scope.lvl1.sets.splice(index, 1)[0];
+			console.log($scope.lvl1.factSet);
 			$scope.lvl1.sets.sort(sortGroup);
+			$scope.$apply();
 		} else if (dragData.type === 'fact') {
+			console.log("justification dropped");
+			var fact = $scope.lvl1.facts[index];
 			$scope.lvl1.justifications.push($scope.lvl1.facts.splice(index, 1)[0]);
+			console.log(index + " : index");
+			$scope.$apply();
+			var className = $scope.lvl1.justifications.length - 1;
+			className = "v" + className;		
+			console.log(className);
+			document.getElementById("fact" + fact.groupIndex).classList.add(className);
+
 		}
-		$scope.$apply();
+
 	};
 
 	this.newFact = function(ev) {
@@ -433,6 +457,7 @@ app.controller('lvl1Controller', function($scope){
 			proven.justifications = proven.justifications.concat($scope.lvl1.justifications);
 			$scope.lvl1.facts = $scope.lvl1.facts.concat($scope.lvl1.justifications);
 			$scope.lvl1.justifications = [];
+			proven.groupIndex = $scope.lvl1.facts.length;
 			$scope.lvl1.facts.push(proven);
 			$scope.lvl1.sets.push($scope.lvl1.factSet);
 			$scope.lvl1.elements.push($scope.lvl1.factElement);
