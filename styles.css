@@ -121,16 +121,16 @@ body{
 	z-index:2;	
 }
 
-#set{
+.set{
 position:relative;
 display: block;
 
 	top:120px;
 	left:0%;
-	height:9%;
-	width:5%;
+	height:42px;
+	width:44px;
 	z-index:2;	
-	background-color: blue;
+	background-image: url("./assets/squareSmall.jpg");
 	padding-left: .5%;
 	padding-top: .25%;
 }
@@ -205,7 +205,7 @@ display: block;
 	height: 80%;
 	top:80px;
 	background-color: blue;
-	z-index: 5;
+	z-index: 3;
 
 }
 
@@ -260,10 +260,11 @@ display: block;
 	border: 2px solid #EEEEEE;
 	position: relative;
 	background-image: url("./assets/triangle.jpg");
-	height: 380px;
-	width:355px;
-	left:180px;
-	bottom:280px;
+	height: 573px;
+	width:680px;
+	left:130px;
+	top: 90px;
+	/*bottom:280px;*/
 /*	bottom:450px;
 	visibility: 	hidden;	
 	width: 0; 
@@ -282,8 +283,8 @@ display: block;
 .setinFact{
 	position:relative;
 	background-image: url("./assets/square.jpg");
-	top: 55%;
-	left:27.27%;
+	top: 57%;
+	left:38%;
 	z-index: 1;
 	height:164px;
 	width:160px;
@@ -312,6 +313,11 @@ display: block;
 	font-size: 2.5em;
 }
 
+#pocketSelector {
+	position: fixed;
+	display: block;
+}
+
 /*#dropZone{
 	width:100px;
 	height:150px;
@@ -326,19 +332,34 @@ display: block;
 
 .fact {
 	position: relative;
-	display: block;
+	display: inline-block;
+	background-image: url("assets/triangleSmall.jpg"); 
+	height: 90px;
+	width: 113px;
+
 }
 
 .v0{
-	font-size:10em;
+	position:absolute;
+	/*width:100%;*/
+	display: block;
+	top:120px;
+	left:280px;
 }
 
 .v1{
-	font-size: 15em;
+	position:absolute;
+	display: block;
+	top:385px;
+	left: 130px;
 
 }
 
 .v2{
-	font-color:blue;
+	position:absolute;
+	display: block;
+	top:385px;
+	left:440px;
+	z-index: 3
 
 }

@@ -69,6 +69,12 @@ var dragoverTree = function(ev) {
 	}
 };
 
+var dragoverSetDetails = function(ev) {
+	if (dragData.type === 'set') {
+		ev.preventDefault();
+	}
+};
+
 var dragSet = function(ev) {
 	dragData.type = 'set';
 	dragData.index = ev.target.getAttribute('index');
@@ -149,6 +155,7 @@ app.controller('lvl1Controller', function($scope){
 	this.factElement;
 	this.factIsIn;
 	this.justifications = [];
+	this.tabMode = "intersect";
 
 	////////////////////
 	// Game Instances //
@@ -212,6 +219,10 @@ app.controller('lvl1Controller', function($scope){
 	this.union2 = this.unionR;
 	this.intersection1 = this.intersectionL;
 	this.intersection2 = this.intersectionR;
+
+	this.modeChange = function(str) {
+		this.tabMode = str;
+	};
 	//Fires when a draggable element is dropped into #left
 	//If dropping a set, remove it from the list of sets,
 	//  and display it in #left
@@ -438,12 +449,19 @@ app.controller('lvl1Controller', function($scope){
 			console.log(index + " : index");
 			$scope.$apply();
 			var className = $scope.lvl1.justifications.length - 1;
-			className = "v" + className;		
+
+			var modClassName = className%3
+			className = "v" + modClassName;		
 			console.log(className);
 			document.getElementById("fact" + fact.groupIndex).classList.add(className);
 
 		}
 
+	};
+
+	this.dropSetDetails = function(ev) {
+		var index = dragData.index;
+		$scope.lvl1.selectedSet = $scope.lvl1.sets[index];
 	};
 
 	this.newFact = function(ev) {
@@ -459,6 +477,7 @@ app.controller('lvl1Controller', function($scope){
 			$scope.lvl1.justifications = [];
 			proven.groupIndex = $scope.lvl1.facts.length;
 			$scope.lvl1.facts.push(proven);
+			$scope.lvl1.facts.sort(sortGroup);
 			$scope.lvl1.sets.push($scope.lvl1.factSet);
 			$scope.lvl1.elements.push($scope.lvl1.factElement);
 			$scope.lvl1.factSet = null;
