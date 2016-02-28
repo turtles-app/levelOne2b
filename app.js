@@ -487,6 +487,24 @@ app.controller('lvl1Controller', function($scope){
 
 			var winner = winCheck(proven);
 			if (winner) alert("Sweet Victory");
+
+		} //end if(sound) 
+		//if argument unsound
+		else {
+			// Clear out selected element, set, and justifications
+			$scope.lvl1.facts = $scope.lvl1.facts.concat($scope.lvl1.justifications);
+			$scope.lvl1.facts.sort(sortGroup);
+			$scope.lvl1.justifications = [];
+			$scope.lvl1.sets.push($scope.lvl1.factSet);
+			$scope.lvl1.sets.sort(sortGroup);
+			$scope.lvl1.elements.push($scope.lvl1.factElement);
+			$scope.lvl1.elements.sort(sortGroup);
+			$scope.lvl1.factSet = null;
+			$scope.lvl1.factElement = null; 
+
+			alert("You can't justify that assertion with those facts. Try again =)");
+
+
 		}
 		$scope.$apply();
 	};

@@ -24,7 +24,7 @@
 </div>
 <div id="wrapper" ng-controller="lvl1Controller as lvl1" class="game">
 	<h1 id='goal'>Prove x is in (BnC)nA</h1>
-	<div id="tree" ondragover='dragoverTree(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.newFact(event)">Tree
+	<div id="tree" ondragover='dragoverTree(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.newFact(event)"><h1 id='treeText'>Fact Tree</h1>
 		<li ng-repeat='fact in lvl1.facts' id="fact{{fact.groupIndex}}" class='fact' draggable='true' index='{{$index}}' ondragstart='dragFact(event)'>{{fact.str}}<br>
 		</li>
 	</div>

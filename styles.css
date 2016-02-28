@@ -256,6 +256,13 @@ display: block;
 	width:70%;	
 }
 
+#treeText {
+	display: block;
+	position: relative;
+	text-align: center;
+	right: 10%;
+}
+
 #factPocket{
 	border: 2px solid #EEEEEE;
 	position: relative;
