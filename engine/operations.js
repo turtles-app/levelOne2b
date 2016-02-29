@@ -30,11 +30,14 @@ var intersection = function(name, x, y) {
 	var res = new Set("intersection", name, intersectSyntax);
 	//Put the common elements from x into res
 	x.elements.forEach(function(element, index, list) {
+		console.log(element);
+		var goesIn = false;
 		y.elements.forEach(function(yElement, yIndex, yList) {
 			if (element.name === yElement.name) {
-				res.putIn(element);
+				goesIn = true;
 			}
 		});
+		if (goesIn) res.putIn(element);		
 	});
 
 	return res;

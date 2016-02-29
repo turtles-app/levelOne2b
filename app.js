@@ -5,24 +5,7 @@ var dragData = {
 	index: null
 };
 
-var intersectionMode = function(){
-	document.getElementById("intersectionPocket").style.visibility = "visible";
-	document.getElementById("setPocket").style.visibility = "hidden";
-	document.getElementById("factPocket").style.visibility = "hidden";
 
-}
-
-var setMode = function(){
-	document.getElementById("setPocket").style.visibility = "visible"
-	document.getElementById("factPocket").style.visibility = "hidden";
-	document.getElementById("intersectionPocket").style.visibility = "hidden"
-}
-
-var factMode = function(){
-	document.getElementById("setPocket").style.visibility = "hidden"
-	document.getElementById("intersectionPocket").style.visibility = "hidden"
-	document.getElementById("factPocket").style.visibility = "visible";
-}
 var dragoverTable = function(ev){
 	if(dragData.type === 'operator' || dragData.name === 'setForm') {
 		ev.preventDefault();
@@ -79,40 +62,31 @@ var dragSet = function(ev) {
 	dragData.type = 'set';
 	dragData.index = ev.target.getAttribute('index');
 	dragData.name = '';
-	console.log("dragSet: " + dragData.index);
 };
 
 var dragUnion = function(ev) {
-	console.log("dragUnion");
 	dragData.type = 'operator';
 	dragData.name = 'union';
 	dragData.index = null;
-	console.log(dragData);
 };
 
 var dragIntersection = function(ev) {
-	console.log("dragIntersection");
 	dragData.type = 'operator';
 	dragData.name = 'intersection';
 	dragData.index= null;
-	console.log(dragData);
 };
 
 var dragSetForm = function(ev) {
-	console.log("dragSetForm");
 	dragData.type = 'form';
 	dragData.name = 'setForm';
 	dragData.index = null;
-	console.log(dragData);
 };
 
 var dragElement = function(ev) {
 	var index = ev.target.getAttribute('index');
-	console.log("DdragElement: " + index);
 	dragData.type = 'element';
 	dragData.name = null;
 	dragData.index = index;
-	console.log(dragData);
 };
 
 var dragFactPocket = function(ev) {
@@ -196,6 +170,8 @@ app.controller('lvl1Controller', function($scope){
 	pInC = new Fact('p', true, 'C'),
 	qInC = new Fact('q', true, 'C'),
 	xInC = new Fact('x', true, 'C');
+	zInB = new Fact('z', true, 'B');
+	qInB = new Fact('q', true, 'B');
 
 	xInA.groupIndex = 0;
 	xInB.groupIndex = 1;
@@ -204,16 +180,22 @@ app.controller('lvl1Controller', function($scope){
 	pInC.groupIndex = 4;
 	qInC.groupIndex = 5;
 	xInC.groupIndex = 6;
+	zInB.groupIndex = 7;
+	qInB.groupIndex = 8;
 
-	this.facts.push(xInA, xInB, yInB, zInC, pInC, qInC, xInC);
+	this.facts.push(xInA, xInB, yInB, zInC, pInC, qInC, xInC, zInB, qInB);
 
 	this.selectedSet = A;
+
+	$scope.lvl1.sets.forEach(function(set) {
+		set.setKnownElements($scope.lvl1.facts);
+	});
 
     ////////////////////     //Toolbox Methods //     ////////////////////    
 	this.unionL = new Set('unionGap','Slot_1');     
 	this.unionR = new Set('unionGap', 'Slot_2');
-	this.intersectionL = new Set('intersectionGap', 'Slot_A');
-	this.intersectionR = new Set('intersectionGap', 'Slot_B');
+	this.intersectionL = new Set('intersectionGap', 'Slot_1');
+	this.intersectionR = new Set('intersectionGap', 'Slot_2');
 
 	this.union1 = this.unionL;
 	this.union2 = this.unionR;
@@ -237,10 +219,9 @@ app.controller('lvl1Controller', function($scope){
 		//Return the old Set 1, if there is one
 		if ($scope.lvl1.union1.isSet) {
 			if ($scope.lvl1.union1.equivalents[0] === "Slot_1") {
-					console.log("not replacing text");
+
 					 }
 				else {
-					console.log("replacing set");
 			  		$scope.lvl1.sets.push($scope.lvl1.union1);
 				}
 			}
@@ -259,11 +240,11 @@ app.controller('lvl1Controller', function($scope){
 		console.log("intersection1: "+ intersection1.equivalents[0]);
 		//Return the old Set 1, if there is one
 		if ($scope.lvl1.intersection1.isSet) {
-			if ($scope.lvl1.intersection1.equivalents[0] === "Slot_A") {
-					console.log("not replacing text");
+			if ($scope.lvl1.intersection1.equivalents[0] === "Slot_1") {
+
 					 }
 				else {
-					console.log("replacing set");
+
 			  		$scope.lvl1.sets.push($scope.lvl1.intersection1);
 				}
 			}
@@ -286,7 +267,7 @@ app.controller('lvl1Controller', function($scope){
 		console.log(union2);
 		//Return the old Set 2, if there is one
 		if ($scope.lvl1.union2.equivalents[0] === "Slot_2") {
-			console.log("not replacing text");
+
 		}
 		else {
 		  		$scope.lvl1.sets.push($scope.lvl1.union2);
@@ -307,11 +288,9 @@ app.controller('lvl1Controller', function($scope){
 		console.log("intersection2: "+ intersection2.equivalents[0]);
 		//Return the old Set 1, if there is one
 		if ($scope.lvl1.intersection2.isSet) {
-			if ($scope.lvl1.intersection2.equivalents[0] === "Slot_B") {
-					console.log("not replacing text");
+			if ($scope.lvl1.intersection2.equivalents[0] === "Slot_2") {
 					 }
 				else {
-					console.log("replacing set");
 			  		$scope.lvl1.sets.push($scope.lvl1.intersection2);
 				}
 			}
@@ -386,6 +365,13 @@ app.controller('lvl1Controller', function($scope){
 			newSet.groupIndex = $scope.lvl1.sets.length;
 			newSet.elements = newSet.elements.concat($scope.lvl1.elementsGoingIn);
 			$scope.lvl1.elements = $scope.lvl1.elements.concat($scope.lvl1.elementsGoingIn.splice(0, $scope.lvl1.elementsGoingIn.length));
+
+			//Generate correpsonding facts
+			newSet.elements.forEach(function(el) {
+				var newFact = new Fact(el.name, true, newSet.equivalents[newSet.eqActiveIndex]);
+				$scope.lvl1.facts.push(newFact);
+			});
+			newSet.setKnownElements($scope.lvl1.facts);
 			$scope.lvl1.sets.push(newSet);
 			console.log(newSet);
 		}		
@@ -462,6 +448,8 @@ app.controller('lvl1Controller', function($scope){
 	this.dropSetDetails = function(ev) {
 		var index = dragData.index;
 		$scope.lvl1.selectedSet = $scope.lvl1.sets[index];
+		console.log("\nSelecting Set:");
+		console.log($scope.lvl1.selectedSet);
 	};
 
 	this.newFact = function(ev) {
@@ -478,12 +466,16 @@ app.controller('lvl1Controller', function($scope){
 			proven.groupIndex = $scope.lvl1.facts.length;
 			$scope.lvl1.facts.push(proven);
 			$scope.lvl1.facts.sort(sortGroup);
+
+			$scope.lvl1.factSet.setKnownElements($scope.lvl1.facts);
+
 			$scope.lvl1.sets.push($scope.lvl1.factSet);
 			$scope.lvl1.elements.push($scope.lvl1.factElement);
 			$scope.lvl1.factSet = null;
 			$scope.lvl1.factElement = null;
 			$scope.lvl1.sets.sort(sortGroup);
 			$scope.lvl1.elements.sort(sortGroup);
+
 
 			var winner = winCheck(proven);
 			if (winner) alert("Sweet Victory");

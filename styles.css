@@ -256,6 +256,11 @@ display: block;
 	width:70%;	
 }
 
+#detailsExplanation {
+	position: absolute;
+	top: 85%;
+}
+
 #treeText {
 	display: block;
 	position: relative;
@@ -265,12 +270,11 @@ display: block;
 
 #factPocket{
 	border: 2px solid #EEEEEE;
-	position: relative;
+	position: absolute;
 	background-image: url("./assets/triangle.jpg");
 	height: 573px;
 	width:680px;
-	left:130px;
-	top: 90px;
+	top: 15%;
 	/*bottom:280px;*/
 /*	bottom:450px;
 	visibility: 	hidden;	
@@ -283,6 +287,13 @@ display: block;
 	transform:rotate(90deg);
 	-ms-transform:rotate(90deg);*/	
 }
+
+#factText {
+	display: block;
+	position: absolute;
+	top: 4%;
+}
+
 
 /*Triangles*/
 
@@ -321,8 +332,9 @@ display: block;
 }
 
 #pocketSelector {
-	position: fixed;
-	display: block;
+	position: absolute;
+	display: inline-block;
+	bottom: 96%;
 	z-index: 5;
 }
 

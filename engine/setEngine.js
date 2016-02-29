@@ -8,6 +8,8 @@ var Set = function (groupName, name, firstEquivalence) {
 	//List of syntax (array) representations of the set
 	this.equivalents = [name]; 
 	this.elements = [];
+	//List of all elements user has proven/been given to be in the set
+	this.knownElements = [];
 	
 	// If the set is the product of an operation between other sets
 	if (firstEquivalence) {
@@ -27,6 +29,24 @@ Set.prototype.putIn = function(element) {
 	this.elements.push(element);
 }
 
+//Assign all elements known to be in the set from a given list of facts
+Set.prototype.setKnownElements = function(facts) {
+	var that = this;
+	var known = []; //temp list of known elements
+	this.elements.forEach(function(element) {
+		var elIsKnown = false;
+		facts.forEach(function(fact) {
+			if (fact.elementName === element.name){
+				that.equivalents.forEach(function(eq) {
+					if (fact.isIn && _.isEqual(eq, fact.setSyntax)) elIsKnown = true;
+				});
+			}
+		});
+		if (elIsKnown) known.push(element);
+	});
+	this.knownElements = known;
+	console.log(this.knownElements);
+}
 
 //  Abstract class that relates an element to a set
 //  that contains it
