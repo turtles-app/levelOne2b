@@ -318,16 +318,17 @@ display: block;
 .elementinFact{
 	
 	position:absolute;
-	width:80%;
-	height:80%;
-	left:11px;
-	top:15px;
+	width:30%;
+	height:30%;
+	left:33%;
+	top:33%;
 }
 #factE{
-	position:relative;
+	position:absolute;
+	text-align: center;
 
-	left:40%;
-	top:30%;
+/*	left:40%;
+	top:30%;*/
 	font-size: 2.5em;
 }
 
@@ -356,7 +357,27 @@ display: block;
 	background-image: url("assets/triangleSmall.jpg"); 
 	height: 90px;
 	width: 113px;
+	margin-left: 5%;
+	margin-bottom: 5%
 
+}
+
+.treeSet {
+	background-image: url("./assets/squareSmall.jpg");
+	position: absolute;
+	height: 50%;
+	width: 40%;
+	top:48%;
+	right: 30%;
+}
+
+.treeElement {
+	background-image: url("./assets/circleSmall.jpg");
+	position: absolute;
+	height: 49%;
+	width: 49%;
+	left: 23%;
+	top: 34%;
 }
 
 .v0{

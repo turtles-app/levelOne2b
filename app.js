@@ -106,7 +106,7 @@ var dragFact = function(ev) {
 // Checks if this fact is the goal fact
 var winCheck = function(fact) {
 	console.log(fact.str);
-	if (fact.str === 'x is in BnCnA') return true;
+	if (fact.str === 'x is in (B n C) n A') return true;
 }
 //Comparison function used to sort a group of sets/elements
 var sortGroup = function (a, b) {
@@ -453,10 +453,12 @@ app.controller('lvl1Controller', function($scope){
 	};
 
 	this.newFact = function(ev) {
-		console.log("newFact");
+		console.log("\nnewFact called. args:");
+		var obj = {eName: $scope.lvl1.factElement.name, setSyntax: $scope.lvl1.factSet.equivalents[$scope.lvl1.factSet.eqActiveIndex], facts: $scope.lvl1.justifications};
+		console.log(obj);
 		//Assumes all facts are of "isIn" form
 		// console.log($scope.lvl1.factSet.equivalents[$scope.lvl1.factSet.equivalents.length - 1]);
-		var sound = contains($scope.lvl1.factElement.name, $scope.lvl1.factSet.equivalents[$scope.lvl1.factSet.equivalents.length - 1], $scope.lvl1.justifications);
+		var sound = contains($scope.lvl1.factElement.name, $scope.lvl1.factSet.equivalents[$scope.lvl1.factSet.eqActiveIndex], $scope.lvl1.justifications);
 		console.log(sound);
 		if (sound) {
 			var proven = new Fact($scope.lvl1.factElement.name, true, $scope.lvl1.factSet.equivalents[0]);

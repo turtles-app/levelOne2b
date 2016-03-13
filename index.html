@@ -25,7 +25,10 @@
 <div id="wrapper" ng-controller="lvl1Controller as lvl1" class="game">
 	<h1 id='goal'>Prove x is in (BnC)nA</h1>
 	<div id="tree" ondragover='dragoverTree(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.newFact(event)"><h1 id='treeText'>Fact Tree</h1>
-		<li ng-repeat='fact in lvl1.facts' id="fact{{fact.groupIndex}}" class='fact' draggable='true' index='{{$index}}' ondragstart='dragFact(event)'>{{fact.str}}<br>
+		<li ng-repeat='fact in lvl1.facts' id="fact{{fact.groupIndex}}" class='fact' draggable='true' index='{{$index}}' ondragstart='dragFact(event)'>
+			{{fact.str}}
+			<div class='treeSet'><div class='treeElement'></div></div> <!-- Set and Element images inside fact in Tree -->
+			<br>
 		</li>
 	</div>
 	<div id="tableWrap">
@@ -60,11 +63,11 @@
 					<div id='intersectionText'></div>
 					<div id='intersectionOperator' draggable ="true" ondragstart='dragIntersection(event)'>
 						<div id='left' class='iset leftUnclicked' ondragover='dragoverISet(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.intersectionDrop1(event)" onclick="clickedClass(this, 'red')">
-							<div ondragover='dragoverISet(event)'ng-show='lvl1.intersection1' id="{{lvl1.intersection1.equivalents[0]}}">{{lvl1.intersection1.equivalents[0]}}</div>
+							<div ondragover='dragoverISet(event)'ng-show='lvl1.intersection1' id="{{lvl1.intersection1.equivalents[0]}}">{{lvl1.intersection1.strEquivalents[0]}}</div>
 						</div>
 						<div id="nMid">n</div>
 						<div id='right' class='iset rightUnclicked' ondragover='dragoverISet(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.intersectionDrop2(event)" onclick="clickedClass(this, 'red')">
-							<div ondragover='dragoverISet(event)'ng-show='lvl1.intersection2' id="{{lvl1.intersection2.equivalents[0]}}">{{lvl1.intersection2.equivalents[0]}}</div>
+							<div ondragover='dragoverISet(event)'ng-show='lvl1.intersection2' id="{{lvl1.intersection2.equivalents[0]}}">{{lvl1.intersection2.strEquivalents[0]}}</div>
 						</div>
 					</div>
 				</div>
@@ -79,7 +82,7 @@
 						<div id='factE' ng-hide='lvl1.factIsIn'>{{lvl1.factElement.name}}</div>
 					</div> -->
 					<div id="square" class="setinFact " ondragover='dragoverElementFact(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.dropElementFactIn(event)">
-						<div id="factS" ng-show='lvl1.factSet'>{{lvl1.factSet.equivalents[0]}}</div>
+						<div id="factS" ng-show='lvl1.factSet'>{{lvl1.factSet.strEquivalents[0]}}</div>
 					
 						<div id="element" class = "element elementinFact">
 							<div id='factE' ng-show='lvl1.factIsIn'>{{lvl1.factElement.name}}</div>
@@ -118,15 +121,15 @@
 		<h1>Sets</h1>
 		<h2>(These have elements in them)</h2>
 		<table>
-		<tr><div id='set.equivalents[0]' class="set" draggable='true' index='{{$index}}' ondragstart="dragSet(event)" ng-repeat="set in lvl1.sets track by $index">{{set.equivalents[0]}}</div> </tr>
+		<tr><div id='set.equivalents[0]' class="set" draggable='true' index='{{$index}}' ondragstart="dragSet(event)" ng-repeat="set in lvl1.sets track by $index">{{set.strEquivalents[0]}}</div> </tr>
 	<div id="elements">
 		<h1>Elements</h1>
 		<h2>(These go in sets)</h2>
 		<div class="element" ng-repeat='element in lvl1.elements' index="{{$index}}" draggable='true' ondragstart="dragElement(event)">{{element.name}}</div>
 	</div>
 	</div>
-	<div id="setDetails" ondragover="dragoverSetDetails(event)" ondrop="angular.element(getElementById('wrapper')).scope().lvl1.dropSetDetails()">Set Details for {{lvl1.selectedSet.equivalents[0]}}:
-		<p>Elements known in {{lvl1.selectedSet.equivalents[0]}}</p>
+	<div id="setDetails" ondragover="dragoverSetDetails(event)" ondrop="angular.element(getElementById('wrapper')).scope().lvl1.dropSetDetails()">Set Details for {{lvl1.selectedSet.strEquivalents[0]}}:
+		<p>Elements known in {{lvl1.selectedSet.strEquivalents[0]}}</p>
 		<div id='detailElementWrapper'>
 			<div ng-repeat="el in lvl1.selectedSet.knownElements track by $index" class="element detailsElement">{{el.name}}</div>
 		</div>

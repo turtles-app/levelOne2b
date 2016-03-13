@@ -27,7 +27,7 @@ var union = function(name, x, y) {
 var intersection = function(name, x, y) {
 	var intersectSyntax = [x.equivalents[x.eqActiveIndex], 'n', y.equivalents[y.eqActiveIndex]];
 	//Create the new set (will be empty)
-	var res = new Set("intersection", name, intersectSyntax);
+	var res = new Set("intersection", intersectSyntax);
 	//Put the common elements from x into res
 	x.elements.forEach(function(element, index, list) {
 		console.log(element);

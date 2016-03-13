@@ -1,5 +1,3 @@
-
-
 var Set = function (groupName, name, firstEquivalence) {
 	// All sets exist within named array within the universe object 
 	// (which is instantiated on the front end)
@@ -7,8 +5,8 @@ var Set = function (groupName, name, firstEquivalence) {
 
 	//List of syntax (array) representations of the set
 	this.equivalents = [name]; 
+	this.strEquivalents = [stringifySyntax(name)];
 	this.elements = [];
-	//List of all elements user has proven/been given to be in the set
 	this.knownElements = [];
 	
 	// If the set is the product of an operation between other sets
@@ -17,11 +15,13 @@ var Set = function (groupName, name, firstEquivalence) {
 		this.equivalents.push(firstEquivalence);
 	}
 	this.eqActiveIndex = 0;
-
 	this.isSet = true;
 
 };
 
+		//////////////////////
+		// Methods for Sets //
+		//////////////////////
 
 //Puts an element in a Set's elements attribute
 Set.prototype.putIn = function(element) {
@@ -48,6 +48,38 @@ Set.prototype.setKnownElements = function(facts) {
 	console.log(this.knownElements);
 }
 
+//	Function that returns stringified syntax
+var stringifySyntax = function (syntax) {
+	switch (typeof(syntax)) {
+		case 'string':
+			return syntax;
+			break;
+		case 'object':
+			var res = "";
+			switch(typeof(syntax[0])) {
+				case "string":
+					res = res + syntax[0] + " ";
+					break;
+				case "object":
+					var first = stringifySyntax(syntax[0]);
+					res = "(" + res + first + ") ";
+					break;
+			}
+			res = res + syntax[1];
+			switch(typeof(syntax[2])) {
+				case "string":
+					res = res + " " + syntax[2];
+					break;
+				case "object":
+					var second = stringifySyntax(syntax[2]);
+					res = res + " (" + second + ")";
+					break;
+			}
+			break;
+	}
+	return(res);
+};
+
 //  Abstract class that relates an element to a set
 //  that contains it
 var setRoute = function (set) {
@@ -73,7 +105,8 @@ var Element = function (name, set) {
 	set.elements.push(this);
 
 	this.isSet=false;
-};
+}
+
 
 //	Fact object represents a fact of the form
 //		"x is contained in A, because [fact1, fact2, ...fact_n]", OR
@@ -88,8 +121,6 @@ var Fact = function (elementName, isIn, setSyntax) {
 	this.usedJustifications = []; //subset of justifications actually necessary for justification
 	var tmpStr = ' is in ';
 	if (!isIn) tmpStr = ' is not in ';
-	this.str = elementName + tmpStr + setSyntax.toString();
+	this.str = elementName + tmpStr + stringifySyntax(setSyntax);;
 	this.groupIndex;
 };
-
-
