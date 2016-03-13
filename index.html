@@ -46,7 +46,7 @@
 				</p>
 				<div class="boxPocket Pocket" draggable='true' ondragstart='dragSetForm(event)' ondragover='dragoverSetForm(event)' ondrop="angular.element(getElementById('wrapper')).scope().lvl1.elementDrop(event)">
 	        		<div class="droppedElemWrap">
-	        			<div class='droppedElement' ng-repeat="el in lvl1.elementsGoingIn">{{el.name}}</div>
+	        			<div class='droppedElement' ng-repeat="el in lvl1.elementsGoingIn"><div class="eText" >{{el.name}}</div></div>
 	        		</div>
 					<form id='setForm'>
 	            		<input type='text' ng-model='lvl1.setName'></input>
@@ -120,18 +120,17 @@
 	<div id="sets" ondragover="dragoverTable(event)" ondrop="angular.element(getElementById('wrapper')).scope().lvl1.drop(event)">
 		<h1>Sets</h1>
 		<h2>(These have elements in them)</h2>
-		<table>
-		<tr><div id='set.equivalents[0]' class="set" draggable='true' index='{{$index}}' ondragstart="dragSet(event)" ng-repeat="set in lvl1.sets track by $index">{{set.strEquivalents[0]}}</div> </tr>
+	<div id='set.equivalents[0]' class="set" draggable='true' index='{{$index}}' ondragstart="dragSet(event)" ng-repeat="set in lvl1.sets track by $index"><div class='setText'>{{set.strEquivalents[0]}}</div></div> 
+	</div>
 	<div id="elements">
 		<h1>Elements</h1>
 		<h2>(These go in sets)</h2>
-		<div class="element" ng-repeat='element in lvl1.elements' index="{{$index}}" draggable='true' ondragstart="dragElement(event)">{{element.name}}</div>
+		<div class="element" ng-repeat='element in lvl1.elements' index="{{$index}}" draggable='true' ondragstart="dragElement(event)"><div class='eText'>{{element.name}}</div></div>
 	</div>
-	</div>
-	<div id="setDetails" ondragover="dragoverSetDetails(event)" ondrop="angular.element(getElementById('wrapper')).scope().lvl1.dropSetDetails()">Set Details for {{lvl1.selectedSet.strEquivalents[0]}}:
-		<p>Elements known in {{lvl1.selectedSet.strEquivalents[0]}}</p>
+	<div id="setDetails" ondragover="dragoverSetDetails(event)" ondrop="angular.element(getElementById('wrapper')).scope().lvl1.dropSetDetails()"><h3>Set Details for {{lvl1.selectedSet.strEquivalents[0]}}</h3>
+		<p id="knownElementsText">Elements known in {{lvl1.selectedSet.strEquivalents[0]}}:</p>
 		<div id='detailElementWrapper'>
-			<div ng-repeat="el in lvl1.selectedSet.knownElements track by $index" class="element detailsElement">{{el.name}}</div>
+			<div ng-repeat="el in lvl1.selectedSet.knownElements track by $index" class="detailsElement"><div class='detailsEText'>{{el.name}}</div></div>
 		</div>
 		<p id="detailsExplanation">Drag a set here to see what you've proven is in it (there could be missing elements)</p>
 	</div>

@@ -450,6 +450,7 @@ app.controller('lvl1Controller', function($scope){
 		$scope.lvl1.selectedSet = $scope.lvl1.sets[index];
 		console.log("\nSelecting Set:");
 		console.log($scope.lvl1.selectedSet);
+		$scope.$apply();
 	};
 
 	this.newFact = function(ev) {
