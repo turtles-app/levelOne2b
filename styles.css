@@ -13,7 +13,7 @@ body{
 #wrapper div {
  
 	/*border: dashed 1px blue;*/
-	margin: 1px;
+	/*margin: 1px;*/
 	display: inline-block;
 }
 /*#wrapper div:hover{
@@ -127,13 +127,13 @@ display: block;
 
 	top:10%;
 	/*left:50%;*/
-	height:18%;
-	width:10%;
+	height:23%;
+	width:12%;
 	z-index:2;	
 	background-image: url("./assets/square.jpg");
 /*	padding-left: .5%;
 	padding-top: .25%;*/
-	margin-left: 15%;
+	margin-left: 5%;
 	text-align: center;
 }
 
@@ -179,6 +179,7 @@ display: block;
 	padding-left: 2%;
 	padding-top: 1%;
 	border-radius: 50%;
+	margin-left: 2%; 
 	/*text-align: center;*/
 }
 
@@ -189,18 +190,6 @@ display: block;
 	text-align: center;
 }
 
-.detailsElement {
-	position: relative;
-	display: inline-block;
-	background-color: red;
-	padding-left: 2%;
-	padding-top: 1%;
-	border-radius: 50%;	
-	width: 27%;
-	height: 20%;
-	text-align: center;
-	position: relative;
-}
 
 .detailsEText {
 	position: absolute;
@@ -286,7 +275,7 @@ display: block;
 #setDetails {
 	position: absolute;
 	display: inline-block;
-	/*top: 300px;*/
+	background-color: #E1D5E8;
 	border: 2px solid black;
 	border-radius: 2%;
 	height:20%;
@@ -303,7 +292,7 @@ display: block;
 #setDetails p {
 	position: relative;
 	bottom: 15%;
-	display: inline-block;
+	/*display: inline-block;*/
 	width: 50%;
 }
 
@@ -314,15 +303,31 @@ display: block;
 
 #detailsExplanation {
 	position: absolute;
-	top: 80%;
+	top: 32%;
 }
 
 #detailElementWrapper {
 	position: absolute;
+	display: block;
+	width: 80%;
+	height: 50%;
+	bottom: .000000000005%;
+	top: 15%;
+	right: 19.5%;
+	/*border: 2px solid black;*/
+}
+.detailsElement {
+	position: relative;
 	display: inline-block;
-	width: 15%;
-	height: 100%;
-	/*bottom: .005%;*/
+	background-color: red;
+	padding-left: 2%;
+	padding-top: 1%;
+	border-radius: 50%;	
+	top: 22%;
+	width: 7%;
+	height: 57%;
+	text-align: center;
+	position: relative;
 }
 
 #treeText {
